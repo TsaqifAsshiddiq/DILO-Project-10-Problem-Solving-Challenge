@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BallMovement : MonoBehaviour
 {
+    public GameManager gameManager;
+    public SpawnController spawnController;
+
     public float speed = 10.0f;
     private Vector2 mousePosition;
 
@@ -23,5 +26,15 @@ public class BallMovement : MonoBehaviour
     void FollowObject(Vector2 objPos)
     {
         transform.position = Vector2.MoveTowards(transform.position, objPos, speed * Time.deltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Box"))
+        {
+            Destroy(collision.gameObject);
+            gameManager.AddScore();
+            spawnController.currentItem--;
+        }
     }
 }

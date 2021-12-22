@@ -8,7 +8,7 @@ public class SpawnController : MonoBehaviour
     private float spawnRangeX = 9.0f;
     private float spawnRangeY = 3.5f;
     public int maxItem = 10;
-    private int currentItem;
+    public int currentItem = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +29,6 @@ public class SpawnController : MonoBehaviour
     {
         Vector2 spawnPos = new Vector2(Random.Range(-spawnRangeX, spawnRangeX), Random.Range(-spawnRangeY, spawnRangeY));
         Instantiate(boxPrefabs, spawnPos, boxPrefabs.transform.rotation);
-        currentItem ++;
+        currentItem++;
     }
 }
