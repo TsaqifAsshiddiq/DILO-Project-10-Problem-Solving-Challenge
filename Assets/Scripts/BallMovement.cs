@@ -7,6 +7,8 @@ public class BallMovement : MonoBehaviour
     public GameManager gameManager;
     public SpawnController spawnController;
 
+    private float xRange = 9.0f;
+    private float yRange = 3.5f;
     public float speed = 10.0f;
     private Vector2 mousePosition;
 
@@ -19,6 +21,7 @@ public class BallMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        AreaLock();
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         FollowObject(mousePosition);
     }
@@ -36,6 +39,26 @@ public class BallMovement : MonoBehaviour
             gameManager.AddScore();
             spawnController.currentItem--;
             StartCoroutine(SpawnCountdown());
+        }
+    }
+
+    private void AreaLock()
+    {
+        if (transform.position.x < -xRange)
+        {
+            transform.position = new Vector3(-xRange, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.x > xRange)
+        {
+            transform.position = new Vector3(xRange, transform.position.y, transform.position.z);
+        }
+        else if (transform.position.y < -yRange)
+        {
+            transform.position = new Vector3(transform.position.x, -yRange, transform.position.z);
+        }
+        else if (transform.position.y > yRange)
+        {
+            transform.position = new Vector3(transform.position.x, yRange, transform.position.z);
         }
     }
 
