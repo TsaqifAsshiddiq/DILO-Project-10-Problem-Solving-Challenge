@@ -35,6 +35,13 @@ public class BallMovement : MonoBehaviour
             Destroy(collision.gameObject);
             gameManager.AddScore();
             spawnController.currentItem--;
+            StartCoroutine(SpawnCountdown());
         }
+    }
+
+    IEnumerator SpawnCountdown()
+    {
+        yield return new WaitForSeconds(3);
+        spawnController.SpawnBox();
     }
 }
